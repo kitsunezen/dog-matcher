@@ -1,16 +1,17 @@
 import { defineStore } from 'pinia'
-import type { Dog } from '@/types/interfaces'
+import { getBreeds } from '@/services/dogService'
 
-interface DogsState {
-  breeds: string[]
-  currentSearch: {
-    breed: string | null
-    page: number
-    sortOrder: 'asc' | 'desc'
-  }
-  searchResults: Dog[]
-  totalResults: number
-}
+import type { DogsState } from '@/types/interfaces'
+// interface DogsState {
+//   breeds: string[]
+//   currentSearch: {
+//     breed: string | null
+//     page: number
+//     sortOrder: 'asc' | 'desc'
+//   }
+//   searchResults: Dog[]
+//   totalResults: number
+// }
 
 export const useDogStore = defineStore('dog', {
   state: (): DogsState => ({
@@ -20,9 +21,22 @@ export const useDogStore = defineStore('dog', {
       page: 1,
       sortOrder: 'asc',
     },
+    matchedDog: {
+      id: 'NullBoy',
+      img: '',
+      name: 'Nobody',
+      age: 0,
+      zip_code: '00000',
+      breed: 'NullDog',
+    },
     searchResults: [],
     totalResults: 0,
   }),
   getters: {},
-  actions: {},
+  actions: {
+    async getBreeds() {
+      const breeds: string[] = await getBreeds()
+      this.$patch({ breeds: breeds })
+    },
+  },
 })

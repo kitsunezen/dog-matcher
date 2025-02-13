@@ -17,6 +17,18 @@ export interface Dog {
   breed: string
 }
 
+export interface DogsState {
+  breeds: string[]
+  currentSearch: {
+    breed: string | null
+    page: number
+    sortOrder: 'asc' | 'desc'
+  }
+  matchedDog: Dog
+  searchResults: Dog[]
+  totalResults: number
+}
+
 export interface Location {
   zip_code: string
   latitude: number
