@@ -1,3 +1,13 @@
+export interface AuthState {
+  user: User | null
+  isAuthenticated: boolean
+}
+
+export interface Coordinates {
+  lat: number
+  lon: number
+}
+
 export interface Dog {
   id: string
   img: string
@@ -16,7 +26,12 @@ export interface Location {
   county: string
 }
 
-export interface Coordinates {
-  lat: number
-  lon: number
+export interface LoginRequestBody {
+  name: string
+  email: string
+}
+
+export interface User {
+  name: string
+  email: string
 }

@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia'
-
-interface AuthState {
-  user: { name: string; email: string } | null
-  isAuthenticated: boolean
-}
+import { login, logout } from '@/services/authService'
+import type { AuthState, User } from '@/types/interfaces'
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
@@ -12,9 +9,17 @@ export const useAuthStore = defineStore('auth', {
   }),
   getters: {},
   actions: {
-    async login() {},
+    async login(user: User) {
+      if (await login(user)) {
+        this.$patch({ user: user, isAuthenticated: true })
+      } else {
+        this.$patch({ user: null, isAuthenticated: false })
+      }
+    },
     async logout() {
-      this.$patch({ user: null, isAuthenticated: false })
+      if (await logout()) {
+        this.$patch({ user: null, isAuthenticated: false })
+      }
     },
   },
 })
