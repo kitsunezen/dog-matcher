@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { useDogStore } from '@/stores/dogs'
-import BreedCard from '@/components/dogs/BreedCard.vue'
+import { ref } from 'vue'
+// import { useDogStore } from '@/stores/dogs'
+// import BreedCard from '@/components/dogs/BreedCard.vue'
 
-const dogs = useDogStore()
-const breeds = dogs.getBreeds()
+// const dogs = useDogStore()
+// const breeds = dogs.getBreeds()
+// const firstBreed = ref(breeds[0])
+const test = ref(`Breeds Test!`)
 </script>
 
 <template>
   <div>
-    <BreedCard v-for="breed in breeds" :breed="breed" v-bind:breed></BreedCard>
+    <v-card :text="test" />
   </div>
 </template>
 
