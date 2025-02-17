@@ -1,17 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed } from 'vue'
 import { useDogStore } from '@/stores/dogs'
 // import BreedCard from '@/components/dogs/BreedCard.vue'
 
 const dogs = useDogStore()
-const breeds = dogs.getBreeds()
-const firstBreed = ref(breeds[0])
-// const test = ref(`Breeds Test!`)
+dogs.getBreeds()
+const breeds = computed(() => dogs.breeds)
 </script>
 
 <template>
-  <div>
-    <v-card :text="firstBreed" />
+  <div class="breed-search">
+    <v-autocomplete label="Breeds" :items="breeds" multiple></v-autocomplete>
   </div>
 </template>
 

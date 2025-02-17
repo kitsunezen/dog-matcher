@@ -17,13 +17,19 @@ export interface Dog {
   breed: string
 }
 
+export interface DogBreed {
+  name: string
+  selected: boolean
+}
+
 export interface DogsState {
-  breeds: string[]
+  breeds: DogBreed[]
   currentSearch: {
     breed: string | null
     page: number
     sortOrder: 'asc' | 'desc'
   }
+  loading: boolean
   matchedDog: Dog
   searchResults: Dog[]
   totalResults: number

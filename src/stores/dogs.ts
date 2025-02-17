@@ -1,17 +1,7 @@
 import { defineStore } from 'pinia'
-import { getBreeds } from '@/services/dogService'
+import { getBreeds, getBreedsLocal } from '@/services/dogService'
 
-import type { DogsState } from '@/types/interfaces'
-// interface DogsState {
-//   breeds: string[]
-//   currentSearch: {
-//     breed: string | null
-//     page: number
-//     sortOrder: 'asc' | 'desc'
-//   }
-//   searchResults: Dog[]
-//   totalResults: number
-// }
+import type { DogBreed, DogsState } from '@/types/interfaces'
 
 export const useDogStore = defineStore('dog', {
   state: (): DogsState => ({
@@ -21,6 +11,7 @@ export const useDogStore = defineStore('dog', {
       page: 1,
       sortOrder: 'asc',
     },
+    loading: false,
     matchedDog: {
       id: 'NullBoy',
       img: '',
@@ -35,8 +26,13 @@ export const useDogStore = defineStore('dog', {
   getters: {},
   actions: {
     async getBreeds() {
-      const breeds: string[] = await getBreeds()
-      this.$patch({ breeds: breeds })
+      this.$patch({ loading: true })
+      let breeds: DogBreed[] = await getBreeds()
+      if (breeds.length === 0) {
+        console.log('Falling back to local data')
+        breeds = getBreedsLocal()
+      }
+      this.$patch({ breeds: breeds, loading: false })
     },
   },
 })

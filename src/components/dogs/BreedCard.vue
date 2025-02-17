@@ -5,5 +5,11 @@ const breed = ref(props.breed)
 </script>
 
 <template>
-  <v-card text="breed"></v-card>
+  <v-card class="breed-card">{{ breed }}</v-card>
 </template>
+
+<style scoped>
+.breed-card {
+  padding: 1em;
+}
+</style>
