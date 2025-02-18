@@ -1,3 +1,5 @@
+// import type { Coord } from '@turf/turf'
+
 export interface AuthState {
   user: User | null
   isAuthenticated: boolean
@@ -42,6 +44,35 @@ export interface Location {
   city: string
   state: string
   county: string
+}
+
+export interface LocationsState {
+  boundingBoxSize: number
+  boundingBoxLocations: Location[]
+  currentLocations: Location[]
+  loading: boolean
+  location: Location
+  totalLocationResults: number
+}
+
+export interface LocationSearchBody {
+  city?: string
+  states?: string[]
+  geoBoundingBox?: {
+    top?: Coordinates
+    left?: Coordinates
+    bottom?: Coordinates
+    right?: Coordinates
+    bottom_right?: Coordinates
+    top_left?: Coordinates
+  }
+  size?: number
+  from?: number
+}
+
+export interface LocationSearchResponse {
+  results: Location[]
+  total: number
 }
 
 export interface LoginRequestBody {
