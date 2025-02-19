@@ -27,14 +27,32 @@ export interface DogBreed {
 export interface DogsState {
   breeds: DogBreed[]
   currentSearch: {
-    breed: string | null
-    page: number
-    sortOrder: 'asc' | 'desc'
+    breed?: string
+    page?: number
+    sortOrder?: 'asc' | 'desc'
   }
   loading: boolean
   matchedDog: Dog
-  searchResults: Dog[]
+  searchResults?: Dog[]
   totalResults: number
+}
+
+export interface DogSearchParameters {
+  breeds?: string[]
+  zipCodes?: string[]
+  ageMin?: number
+  ageMax?: number
+  size?: number
+  from?: number
+  // This should have its own type..
+  sort?: string
+}
+
+export interface DogSearchResponse {
+  resultIds: string[]
+  total: number
+  next?: string
+  prev?: string
 }
 
 export interface Location {

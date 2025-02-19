@@ -19,17 +19,24 @@ export function createBoundingBoxTurf(
 ): BoundingBox {
   const center = turf.point([longitude, latitude])
 
-  const southEast = turf.destination(center, offsetMiles, 225, { units: 'miles' })
-  const northWest = turf.destination(center, offsetMiles, 45, { units: 'miles' })
+  // Create points in all 4 directions to get proper bounds
+  const north = turf.destination(center, offsetMiles, 0, { units: 'miles' })
+  const east = turf.destination(center, offsetMiles, 90, { units: 'miles' })
+  const south = turf.destination(center, offsetMiles, 180, { units: 'miles' })
+  const west = turf.destination(center, offsetMiles, 270, { units: 'miles' })
 
-  const seCoords = southEast.geometry.coordinates as [number, number]
-  const nwCoords = northWest.geometry.coordinates as [number, number]
+  // Extract coordinates
+  const northLat = north.geometry.coordinates[1]
+  const eastLng = east.geometry.coordinates[0]
+  const southLat = south.geometry.coordinates[1]
+  const westLng = west.geometry.coordinates[0]
 
-  // Create the bounding box using coordinates directly:
-  const bbox = turf.bboxPolygon([seCoords[0], seCoords[1], nwCoords[0], nwCoords[1]])
-  // Extract bottom-left and top-right coordinates from the bounding box
-  const bottomRight: LatLng = { lat: seCoords[1], lon: seCoords[0] }
-  const topLeft: LatLng = { lat: nwCoords[1], lon: nwCoords[0] }
+  // Create bounding box using proper format [west, south, east, north]
+  const bbox = turf.bboxPolygon([westLng, southLat, eastLng, northLat])
+
+  // Create corner points
+  const bottomRight: LatLng = { lat: southLat, lon: eastLng }
+  const topLeft: LatLng = { lat: northLat, lon: westLng }
 
   return {
     bbox: bbox.geometry,
