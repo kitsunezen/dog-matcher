@@ -68,6 +68,7 @@ export interface LocationsState {
   boundingBoxSize: number
   boundingBoxLocations: Location[]
   currentLocations: Location[]
+  currentZips: string[]
   loading: boolean
   location: Location
   totalLocationResults: number

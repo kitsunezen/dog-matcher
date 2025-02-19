@@ -7,6 +7,7 @@ export const useLocationStore = defineStore('location', {
     boundingBoxSize: 0,
     boundingBoxLocations: [],
     currentLocations: [],
+    currentZips: [],
     loading: false,
     location: { zip_code: '', latitude: 0, longitude: 0, city: '', state: '', county: '' },
     totalLocationResults: 0,
@@ -35,6 +36,7 @@ export const useLocationStore = defineStore('location', {
           distance,
         )
         this.currentLocations = locationsResponse.results
+        this.currentZips = this.currentLocations.map((location) => location.zip_code)
         this.totalLocationResults = locationsResponse.total
       } catch (error) {
         console.error(`Locations store: getNearbyLocations: Failed: ${error}`)
