@@ -19,8 +19,8 @@ export const useLocationStore = defineStore('location', {
       try {
         const locations: Location[] = await getLocations(zipcodes)
         this.currentLocations = locations
-        if (zipcodes.length === 1) {
-          this.location = locations[0]
+        if (zipcodes.length === 1 && this.currentLocations?.length === 1) {
+          this.location = this.currentLocations[0]
         }
       } catch (error) {
         console.error(`Locations store: getLocations: Failed: ${error}`)
@@ -44,9 +44,12 @@ export const useLocationStore = defineStore('location', {
         this.loading = false
       }
     },
-    async getSingleLocation(zipcode: string) {
+    async getCurrentLocation(zipcode: string) {
       console.log(`Getting location for ${zipcode}`)
-      getLocations([zipcode])
+      await getLocations([zipcode])
+      if (this.currentLocations?.length > 0) {
+        this.location = this.currentLocations[0]
+      }
     },
   },
 })

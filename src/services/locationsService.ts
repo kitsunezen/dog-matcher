@@ -26,6 +26,7 @@ export const getLocationsWithBoundingBox = async (
   const boundingBox = createBoundingBoxTurf(location.latitude, location.longitude, distance)
   const body: LocationSearchBody = {
     geoBoundingBox: { bottom_right: boundingBox.bottomRight, top_left: boundingBox.topLeft },
+    size: 1000,
   }
   try {
     const response: AxiosResponse<LocationSearchResponse> = await axiosInstance.post(endpoint, body)

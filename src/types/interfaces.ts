@@ -25,7 +25,7 @@ export interface DogBreed {
 }
 
 export interface DogsState {
-  breeds: DogBreed[]
+  breeds: string[]
   currentSearch: {
     breed?: string
     page?: number
@@ -97,6 +97,10 @@ export interface LocationSearchResponse {
 export interface LoginRequestBody {
   name: string
   email: string
+}
+
+export interface ParamsState {
+  params: DogSearchParameters
 }
 
 export interface User {

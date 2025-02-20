@@ -31,7 +31,7 @@ export const useDogStore = defineStore('dog', {
     async getBreeds() {
       this.loading = true
       try {
-        let breeds: DogBreed[] = await getBreeds()
+        let breeds: string[] = await getBreeds()
         if (breeds.length === 0) {
           console.log('Falling back to local data')
           breeds = getBreedsLocal()
@@ -90,6 +90,9 @@ export const useDogStore = defineStore('dog', {
         return this.fetchDogDetails(ids)
       }
       return []
+    },
+    async init() {
+      this.getBreeds()
     },
   },
 })
