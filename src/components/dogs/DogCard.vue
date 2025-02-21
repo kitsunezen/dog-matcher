@@ -4,35 +4,29 @@
       <div class="image-wrapper">
         <img :src="dog.img" :alt="dog.name" loading="lazy" />
       </div>
-      <figcaption class="caption">{{ dog.name }}</figcaption>
+      <figcaption class="caption">
+        <div>{{ dog.name }}</div>
+        <div class="favorite-icon" @click="toggleFavorite">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            :fill="isFavorite ? 'red' : 'none'"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.94-8.94 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            />
+          </svg>
+        </div>
+      </figcaption>
     </figure>
     <div class="content">
-      <h2 class="title">{{ dog.name }} details</h2>
-      <dl class="details">
-        <dt>Age</dt>
-        <dd>{{ dog.age }}</dd>
-        <dt>Breed</dt>
-        <dd>{{ dog.breed }}</dd>
-        <dt>Location</dt>
-        <dd>{{ dog.zip_code }}</dd>
-      </dl>
-      <div class="favorite-icon" @click="toggleFavorite">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          width="24"
-          height="24"
-          :fill="isFavorite ? 'red' : 'none'"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.94-8.94 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-          />
-        </svg>
-      </div>
+      <span>{{ dog.age }} year old {{ dog.breed }}, located in {{ dog.zip_code }}</span>
     </div>
   </article>
 </template>
@@ -55,9 +49,9 @@ const toggleFavorite = () => {
 
 <style scoped>
 .card {
-  display: grid;
-  grid-template-columns: 200px minmax(0, 1fr); /* minmax prevents overflow */
-  gap: 1.5rem;
+  /* display: grid; */
+  /* grid-template-columns: 200px minmax(0, 1fr); minmax prevents overflow */
+  /* gap: 1.5rem; */
   padding: 1.25rem;
   background: white;
   border-radius: 0.5rem;
@@ -73,6 +67,7 @@ const toggleFavorite = () => {
 
 .image-container {
   margin: 0; /* Reset figure margins */
+  width: 40%;
 }
 
 .image-wrapper {
@@ -101,6 +96,9 @@ const toggleFavorite = () => {
   font-size: 1.275rem;
   color: #666;
   text-align: center;
+  display: flex;
+  gap: 1em;
+  justify-content: center;
 }
 
 .content {
