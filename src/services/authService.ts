@@ -1,12 +1,13 @@
 import axiosInstance from './axiosInstance'
-import axios from 'axios'
+// import axios from 'axios'
 import type { LoginRequestBody, User } from '@/types/interfaces'
 
 export const login = async (user: User): Promise<boolean> => {
   const body: LoginRequestBody = { name: user.name, email: user.email }
-  const endpoint: string = 'https://frontend-take-home-service.fetch.com/auth/login'
+  // const endpoint: string = 'https://frontend-take-home-service.fetch.com/auth/login'
+  const endpoint: string = '/auth/login'
   try {
-    await axios.post(endpoint, body)
+    await axiosInstance.post(endpoint, body)
     return true
   } catch (error) {
     console.error(`authServices: Login failed: ${error}`)

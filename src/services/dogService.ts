@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance'
 import type { AxiosResponse } from 'axios'
 import qs from 'qs'
 import breedsData from './data/breeds.json'
-import type { Dog, DogBreed, DogSearchParameters, DogSearchResponse } from '@/types/interfaces'
+import type { Dog, DogSearchParameters, DogSearchResponse } from '@/types/interfaces'
 // import { mask } from '@turf/turf'
 
 export const getBreeds = async (): Promise<string[]> => {
@@ -108,12 +108,6 @@ export const getDogMatch = async (ids: string[]): Promise<Dog> => {
 // Fetch breeds from the local JSON file
 export const getBreedsLocal = (): string[] => {
   try {
-    // const breeds: DogBreed[] = []
-    // let i: number = 0
-    // for (i = 0; i < breedsData.length; i++) {
-    //   breeds.push({ name: breedsData[i], selected: false })
-    // }
-    // return breeds // Return data directly from the imported JSON file
     return breedsData
   } catch (error) {
     console.log(`dogService: getBreedsLocal failed: ${error}`)

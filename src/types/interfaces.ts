@@ -3,6 +3,7 @@
 export interface AuthState {
   user: User | null
   isAuthenticated: boolean
+  isAuthenticating: boolean
 }
 
 export interface Coordinates {

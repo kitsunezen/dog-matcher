@@ -98,6 +98,7 @@ const handleKeydown = (event: KeyboardEvent) => {
 .autocomplete-container {
   position: relative;
   width: 100%;
+  margin-bottom: 0.5em;
 }
 
 .autocomplete-input {

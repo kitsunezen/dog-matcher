@@ -1,12 +1,6 @@
 import { defineStore } from 'pinia'
 import { getBreeds, getBreedsLocal, getDogs, searchDogs } from '@/services/dogService'
-import type {
-  Dog,
-  DogBreed,
-  DogSearchParameters,
-  DogSearchResponse,
-  DogsState,
-} from '@/types/interfaces'
+import type { Dog, DogSearchParameters, DogSearchResponse, DogsState } from '@/types/interfaces'
 
 export const useDogStore = defineStore('dog', {
   state: (): DogsState => ({
