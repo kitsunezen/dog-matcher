@@ -25,6 +25,9 @@ export interface DogBreed {
   selected: boolean
 }
 
+export interface DogMatch {
+  match: string
+}
 export interface DogsState {
   breeds: string[]
   currentSearch: {
@@ -33,6 +36,7 @@ export interface DogsState {
     sortOrder?: 'asc' | 'desc'
   }
   loading: boolean
+  foundTopDog: boolean
   matchedDog: Dog
   searchResults?: Dog[]
   totalResults: number

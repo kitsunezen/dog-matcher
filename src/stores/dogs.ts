@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getBreeds, getBreedsLocal, getDogs, searchDogs } from '@/services/dogService'
+import { getBreeds, getBreedsLocal, getDogs, getDogMatch, searchDogs } from '@/services/dogService'
 import type { Dog, DogSearchParameters, DogSearchResponse, DogsState } from '@/types/interfaces'
 
 export const useDogStore = defineStore('dog', {
@@ -10,6 +10,7 @@ export const useDogStore = defineStore('dog', {
       sortOrder: 'asc',
     },
     loading: false,
+    foundTopDog: false,
     matchedDog: {
       id: 'NullBoy',
       img: '',
@@ -84,6 +85,19 @@ export const useDogStore = defineStore('dog', {
         return this.fetchDogDetails(ids)
       }
       return []
+    },
+
+    async getTopDog(ids: string[]) {
+      if (ids.length < 2) {
+        return
+      }
+      const dogMatch = await getDogMatch(ids)
+      const matchedDogs = await this.fetchDogDetails([dogMatch.match])
+      this.matchedDog = matchedDogs[0]
+      this.foundTopDog = true
+    },
+    clearTopDog() {
+      this.foundTopDog = false
     },
     async init() {
       this.getBreeds()

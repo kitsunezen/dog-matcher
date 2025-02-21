@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance'
 import type { AxiosResponse } from 'axios'
 import qs from 'qs'
 import breedsData from './data/breeds.json'
-import type { Dog, DogSearchParameters, DogSearchResponse } from '@/types/interfaces'
+import type { Dog, DogMatch, DogSearchParameters, DogSearchResponse } from '@/types/interfaces'
 // import { mask } from '@turf/turf'
 
 export const getBreeds = async (): Promise<string[]> => {
@@ -94,14 +94,14 @@ export const getDogs = async (ids: string[]): Promise<Dog[]> => {
   }
 }
 
-export const getDogMatch = async (ids: string[]): Promise<Dog> => {
+export const getDogMatch = async (ids: string[]): Promise<DogMatch> => {
   const endpoint: string = '/dogs/match'
   try {
-    const response: Dog = await axiosInstance.post(endpoint, ids)
-    return response
+    const response: AxiosResponse = await axiosInstance.post(endpoint, ids)
+    return response.data
   } catch (error) {
     console.error(`dogService: getDogMatch failed: ${error}`)
-    return { id: '', img: '', name: '', age: 0, zip_code: '', breed: '' }
+    return { match: '' }
   }
 }
 
